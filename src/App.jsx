@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button"
+import Navbar from "./components/Navbar"
+import ResizableSidebar from "./components/ResizableSidebar"
 
 function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button className='text-red-500'>Click me</Button>
-    </div>
+    <>
+      <Navbar />
+      <ResizableSidebar />
+    </>
   )
 }
 
