@@ -46,7 +46,7 @@ const AnimatedCollapseCard = ({
       <div 
         className={cn(
           "overflow-hidden transition-all duration-300 ease-in-out",
-          isExpanded ? "max-h-96" : "max-h-0"
+          isExpanded ? "max-h-[700px]" : "max-h-0"
         )}
       >
         <CardContent className="pt-0 pb-2"> {/* Reduced from pb-4 to pb-2 for shorter bottom padding */}

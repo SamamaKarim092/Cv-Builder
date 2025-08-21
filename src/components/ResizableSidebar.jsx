@@ -2,6 +2,8 @@ import AnimatedCollapseCard from './AnimatedCollapseCard';
 import Objective from './Cards Components/Objective';
 import Education from './Cards Components/Education';
 import Skills from './Cards Components/Skills';
+import Projects from './Cards Components/Projects';
+import Certifications from './Cards Components/Certifications';
 import { Button } from "@/components/ui/button";
 import {
   ResizableHandle,
@@ -12,8 +14,8 @@ import {
   Target, 
   GraduationCap, 
   Code, 
-  TrendingUp, 
-  Settings, 
+  FolderOpen, 
+  Award,
   FileText 
 } from 'lucide-react';
 
@@ -42,55 +44,17 @@ const ResizableSidebar = () => {
     },
     {
       id: 4,
-      title: "Progress",
-      icon: TrendingUp,
-      content: "Current project status and completion percentage across different modules.",
-      children: (
-        <div className="space-y-3 mt-2">
-          <div className="space-y-1">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Frontend</span>
-              <span className="text-gray-500">75%</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-blue-500 h-2 rounded-full" style={{width: '75%'}}></div>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">Backend</span>
-              <span className="text-gray-500">60%</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-green-500 h-2 rounded-full" style={{width: '60%'}}></div>
-            </div>
-          </div>
-        </div>
-      )
+      title: "Projects",
+      icon: FolderOpen, // Changed icon to FolderOpen
+      content: "Showcase your projects with descriptions, technologies used, and links. Add, edit, or remove projects as needed.",
+      children: <Projects /> // Use the new Projects component
     },
     {
       id: 5,
-      title: "Configuration",
-      icon: Settings,
-      content: "Project settings and environment configurations for development and production.",
-      children: (
-        <div className="space-y-2 mt-2">
-          <div className="text-sm text-gray-600 space-y-1">
-            <div className="flex items-center justify-between">
-              <span>Development Mode</span>
-              <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">Active</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Hot Reload</span>
-              <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">Enabled</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Build Status</span>
-              <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Success</span>
-            </div>
-          </div>
-        </div>
-      )
+      title: "Certifications",
+      icon: Award, // Changed icon to Award
+      content: "Add your professional certifications, licenses, and credentials with verification links and issue dates.",
+      children: <Certifications /> // Use the new Certifications component
     },
     {
       id: 6,
