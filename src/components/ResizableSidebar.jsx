@@ -4,6 +4,7 @@ import Education from './Cards Components/Education';
 import Skills from './Cards Components/Skills';
 import Projects from './Cards Components/Projects';
 import Certifications from './Cards Components/Certifications';
+import Achievement from './Cards Components/Achievement';
 import { Button } from "@/components/ui/button";
 import {
   ResizableHandle,
@@ -16,7 +17,7 @@ import {
   Code, 
   FolderOpen, 
   Award,
-  FileText 
+  Trophy 
 } from 'lucide-react';
 
 const ResizableSidebar = () => {
@@ -56,33 +57,12 @@ const ResizableSidebar = () => {
       content: "Add your professional certifications, licenses, and credentials with verification links and issue dates.",
       children: <Certifications /> // Use the new Certifications component
     },
-    {
+     {
       id: 6,
-      title: "Documentation",
-      icon: FileText,
-      content: "Important project documentation, guides, and reference materials.",
-      children: (
-        <div className="space-y-2 mt-2">
-          <ul className="text-sm text-gray-600 space-y-1">
-            <li className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-              <span>API Documentation</span>
-            </li>
-            <li className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-              <span>Component Library</span>
-            </li>
-            <li className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-              <span>Deployment Guide</span>
-            </li>
-            <li className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-              <span>Testing Guidelines</span>
-            </li>
-          </ul>
-        </div>
-      )
+      title: "Achievement",
+      icon: Trophy, // Changed icon to Trophy
+      content: "Highlight your awards, honors, and notable accomplishments with dates and organizing institutions.",
+      children: <Achievement /> // Use the new Achievement component
     }
   ];
 
