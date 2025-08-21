@@ -1,10 +1,12 @@
 import AnimatedCollapseCard from './AnimatedCollapseCard';
+import PersonalInfo from './Cards Components/PersonalInfo';
 import Objective from './Cards Components/Objective';
 import Education from './Cards Components/Education';
 import Skills from './Cards Components/Skills';
 import Projects from './Cards Components/Projects';
 import Certifications from './Cards Components/Certifications';
 import Achievement from './Cards Components/Achievement';
+import Resume from './Resume';
 import { Button } from "@/components/ui/button";
 import {
   ResizableHandle,
@@ -12,6 +14,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { 
+  User,
   Target, 
   GraduationCap, 
   Code, 
@@ -24,57 +27,64 @@ const ResizableSidebar = () => {
   const sidebarCards = [
     {
       id: 1,
+      title: "Personal Info",
+      icon: User, // Changed icon to User
+      content: "Add your personal information including name, contact details, and professional profiles.",
+      children: <PersonalInfo /> // Use the new PersonalInfo component
+    },
+    {
+      id: 2, // Changed from 1 to 2
       title: "Objective",
       icon: Target,
       content: "Create and manage your CV objective statement to showcase your career goals and aspirations.",
-      children: <Objective /> // Use the new Objective component
+      children: <Objective />
     },
-     {
-      id: 2,
+    {
+      id: 3, // Changed from 2 to 3
       title: "Education",
-      icon: GraduationCap, // Changed icon to GraduationCap
+      icon: GraduationCap,
       content: "Add your educational background including university, degree, CGPA, and relevant coursework.",
-      children: <Education /> // Use the new Education component
+      children: <Education />
     },
     {
-      id: 3,
+      id: 4, // Changed from 3 to 4
       title: "Skills",
-      icon: Code, // Changed icon to Code
+      icon: Code,
       content: "Add your technical and soft skills. You can add multiple skills and organize them by categories.",
-      children: <Skills /> // Use the new Skills component
+      children: <Skills />
     },
     {
-      id: 4,
+      id: 5, // Changed from 4 to 5
       title: "Projects",
-      icon: FolderOpen, // Changed icon to FolderOpen
+      icon: FolderOpen,
       content: "Showcase your projects with descriptions, technologies used, and links. Add, edit, or remove projects as needed.",
-      children: <Projects /> // Use the new Projects component
+      children: <Projects />
     },
     {
-      id: 5,
+      id: 6, // Changed from 5 to 6
       title: "Certifications",
-      icon: Award, // Changed icon to Award
+      icon: Award,
       content: "Add your professional certifications, licenses, and credentials with verification links and issue dates.",
-      children: <Certifications /> // Use the new Certifications component
+      children: <Certifications />
     },
-     {
-      id: 6,
+    {
+      id: 7, // Changed from 6 to 7
       title: "Achievement",
-      icon: Trophy, // Changed icon to Trophy
+      icon: Trophy,
       content: "Highlight your awards, honors, and notable accomplishments with dates and organizing institutions.",
-      children: <Achievement /> // Use the new Achievement component
+      children: <Achievement />
     }
   ];
 
   return (
     <ResizablePanelGroup
       direction="horizontal"
-      className="h-[calc(100vh-64px)] w-full" // Adjust 64px based on your navbar height
+      className="h-[calc(100vh-64px)] w-full"
     >
       <ResizablePanel defaultSize={25} minSize={20} maxSize={40}>
         <div className="bg-gray-50 border-r border-gray-200 overflow-y-auto h-full">
           <div className="p-4">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">Project Dashboard</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">CV Builder Dashboard</h2>
             <div className="space-y-3">
               {sidebarCards.map((card) => (
                 <AnimatedCollapseCard
@@ -96,13 +106,18 @@ const ResizableSidebar = () => {
       
       <ResizablePanel defaultSize={75}>
         <div className="flex-1 p-8 bg-white h-full overflow-y-auto">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Main Content Area</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">CV Builder</h1>
           <p className="text-gray-600">
-            This is the main content area. The sidebar on the left is now resizable! 
-            Drag the handle to adjust the sidebar width.
+            Welcome to your CV Builder! Use the sidebar to add different sections to your CV.
+            Start by filling out your personal information and other sections.
           </p>
           <div className="mt-6">
-            <Button>Sample Button</Button>
+            <Button>Preview CV</Button>
+          </div>
+
+          {/* Resume component added below the button */}
+          <div className="mt-8">
+            <Resume />
           </div>
         </div>
       </ResizablePanel>
