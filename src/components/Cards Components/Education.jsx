@@ -1,7 +1,5 @@
-import React from 'react';
-import { GraduationCap } from 'lucide-react';
-
-const Education = () => {
+// Education.jsx
+const Education = ({education , onEducationChange}) => {
   return (
     <div className="space-y-3 mt-2"> {/* Reduced spacing from space-y-4 to space-y-3 */}
       {/* Input Section */}
@@ -10,6 +8,8 @@ const Education = () => {
           <input
             type="text"
             placeholder="Your University"
+            value={education.university}
+            onChange={(e) => onEducationChange("university", e.target.value)} 
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" // Reduced padding from p-3 to p-2
           />
         </div>
@@ -18,6 +18,8 @@ const Education = () => {
           <input
             type="text"
             placeholder="Your Technology"
+            value={education.technology}
+           onChange={(e) => onEducationChange("technology", e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
@@ -26,6 +28,8 @@ const Education = () => {
           <input
             type="text"
             placeholder="Your CGPA"
+            value={education.cgpa}
+            onChange={(e) => onEducationChange("cgpa", e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
@@ -33,6 +37,8 @@ const Education = () => {
         <div>
           <textarea
             placeholder="Related Coursework"
+            value={education.coursework}
+            onChange={(e) => onEducationChange("coursework", e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             rows={2} // Reduced from 3 to 2 rows
           />

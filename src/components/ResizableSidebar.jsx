@@ -24,6 +24,8 @@ import {
   Trophy 
 } from 'lucide-react';
 
+
+// Personal Info State
 const ResizableSidebar = () => {
   const [personalInfo, setPersonalInfo] = useState({
     fullName: '',
@@ -35,6 +37,7 @@ const ResizableSidebar = () => {
     github: ''
   });
 
+// Personal Info Change Handler
   const handlePersonalInfoChange = (field, value) => {
     setPersonalInfo(prev => ({
       ...prev,
@@ -42,14 +45,32 @@ const ResizableSidebar = () => {
     }));
   };
 
+// Objective State
 const [objective, setObjective] = useState({
   objective: ''
 });
 
+// Objective Change Handler
 const handleObjectiveChange = (value) => {
   setObjective(prev => ({
     ...prev,
     objective: value
+  }));
+};
+
+// Education State
+const [education , setEducation] = useState({
+  university: "",
+  technology: "",
+  cgpa: "",
+  coursework: ""
+})
+
+// Education Change Handler
+const handleEducationChange = (field, value) => {
+  setEducation(prev => ({
+    ...prev,
+    [field]: value
   }));
 };
 
@@ -58,9 +79,9 @@ const handleObjectiveChange = (value) => {
     {
       id: 1,
       title: "Personal Info",
-      icon: User, // Changed icon to User
+      icon: User, 
       content: "Add your personal information including name, contact details, and professional profiles.",
-      children: <PersonalInfo personalInfo={personalInfo} onPersonalInfoChange={handlePersonalInfoChange} /> // Use the new PersonalInfo component
+      children: <PersonalInfo personalInfo={personalInfo} onPersonalInfoChange={handlePersonalInfoChange} />
     },
     {
       id: 2, 
@@ -74,7 +95,7 @@ const handleObjectiveChange = (value) => {
       title: "Education",
       icon: GraduationCap,
       content: "Add your educational background including university, degree, CGPA, and relevant coursework.",
-      children: <Education />
+      children: <Education education={education} onEducationChange={handleEducationChange} />
     },
     {
       id: 4, 
@@ -149,7 +170,7 @@ const handleObjectiveChange = (value) => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume personalInfo={personalInfo} objective={objective} />
+            <Resume personalInfo={personalInfo} objective={objective} education={education} />
           </div>
         </div>
       </ResizablePanel>

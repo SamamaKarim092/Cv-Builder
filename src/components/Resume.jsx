@@ -1,5 +1,5 @@
 // Resume.jsx
-const Resume = ({ personalInfo, objective }) => {
+const Resume = ({ personalInfo, objective, education }) => {
   return (
     <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
       <div className="space-y-4">
@@ -52,14 +52,50 @@ const Resume = ({ personalInfo, objective }) => {
         </div>
 
         {/* Objective */}
-        {objective && objective.objective && (
+        {objective?.objective && (
           <div>
             <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
               Objective
             </h2>
-            <p className="text-sm text-gray-700 mt-1">
+            <p className="text-sm text-gray-700 mt-1 whitespace-pre-line">
               {objective.objective}
             </p>
+          </div>
+        )}
+
+        {/* Education */}
+        {(education?.university ||
+          education?.technology ||
+          education?.cgpa) && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
+              Education
+            </h2>
+            <div className="text-sm text-gray-700 mt-1">
+              {education.university && (
+                <p>
+                  <strong>Degree:</strong> {education.university}
+                </p>
+              )}
+              {education.technology && (
+                <p>
+                  <strong>Field:</strong> {education.technology}
+                </p>
+              )}
+              {education.cgpa && (
+                <p>
+                  <strong>CGPA:</strong> {education.cgpa}
+                </p>
+              )}
+              {education.coursework && (
+                <p>
+                  <strong>Coursework:</strong>
+                  <span className="whitespace-pre-line block mt-1">
+                    {education.coursework}
+                  </span>
+                </p>
+              )}
+            </div>
           </div>
         )}
       </div>
