@@ -1,5 +1,5 @@
 // Resume.jsx
-const Resume = ({ personalInfo, objective, education }) => {
+const Resume = ({ personalInfo, objective, education, skills }) => {
   return (
     <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
       <div className="space-y-4">
@@ -98,6 +98,40 @@ const Resume = ({ personalInfo, objective, education }) => {
             </div>
           </div>
         )}
+
+        {/* Skills */}
+        {skills &&
+          skills.some(
+            (item) => item.skill.trim() !== "" || item.type.trim() !== ""
+          ) && (
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
+                Skills
+              </h2>
+
+              <div className="space-y-2 mt-2">
+                {skills
+                  .filter(
+                    (item) =>
+                      item.skill.trim() !== "" || item.type.trim() !== ""
+                  )
+                  .map((item, index) => (
+                    <div key={index} className="text-sm text-gray-700">
+                      {item.type && (
+                        <strong className="text-gray-800 mr-1.5">
+                          {item.type}:
+                        </strong>
+                      )}
+                      {item.skill || (
+                        <em className="text-gray-500">[No skill entered]</em>
+                      )}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+
+          
       </div>
     </div>
   );

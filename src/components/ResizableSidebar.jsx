@@ -74,6 +74,34 @@ const handleEducationChange = (field, value) => {
   }));
 };
 
+// Skills State
+const [skills, setSkills] = useState([
+  { type: '', skill: '' }
+]);
+
+// Add new skill row
+const addSkill = () => {
+  setSkills([...skills, { type: '', skill: '' }]);
+};
+
+// Remove skill by index
+const removeSkill = (index) => {
+  if (skills.length > 1) {
+    setSkills(skills.filter((_, i) => i !== index));
+  }
+};
+
+// Update skill at index
+const updateSkill = (index, field, value) => {
+  const updated = skills.map((item, i) => {
+    if (i === index) {
+      return { ...item, [field]: value };
+    }
+    return item;
+  });
+  setSkills(updated);
+};
+
 
   const sidebarCards = [
     {
@@ -102,7 +130,7 @@ const handleEducationChange = (field, value) => {
       title: "Skills",
       icon: Code,
       content: "Add your technical and soft skills. You can add multiple skills and organize them by categories.",
-      children: <Skills />
+      children: <Skills skills={skills} onAddSkill={addSkill} onRemoveSkill={removeSkill} onUpdateSkill={updateSkill} />
     },
     {
       id: 5, 
@@ -170,7 +198,7 @@ const handleEducationChange = (field, value) => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume personalInfo={personalInfo} objective={objective} education={education} />
+            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} />
           </div>
         </div>
       </ResizablePanel>
