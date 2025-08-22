@@ -1,11 +1,13 @@
-const Objective = () => {
+// Objective.jsx
+const Objective = ({objective , onObjectiveChange}) => {
   return (
     <div className="space-y-4 mt-2">
       <div className="space-y-3">
         <div>
           <textarea
-            // No value prop - uncontrolled
-            placeholder="Enter the objective for your CV"
+           placeholder="Enter the objective for your CV"
+            value={objective.objective} // show current value
+            onChange={(e) => onObjectiveChange(e.target.value)} // call parent function
             className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             rows={3}
           />

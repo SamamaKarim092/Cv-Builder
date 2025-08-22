@@ -1,5 +1,5 @@
 // Resume.jsx
-const Resume = ({ personalInfo }) => {
+const Resume = ({ personalInfo, objective }) => {
   return (
     <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
       <div className="space-y-4">
@@ -50,6 +50,18 @@ const Resume = ({ personalInfo }) => {
             </p>
           )}
         </div>
+
+        {/* Objective */}
+        {objective && objective.objective && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
+              Objective
+            </h2>
+            <p className="text-sm text-gray-700 mt-1">
+              {objective.objective}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

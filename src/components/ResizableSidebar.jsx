@@ -42,6 +42,18 @@ const ResizableSidebar = () => {
     }));
   };
 
+const [objective, setObjective] = useState({
+  objective: ''
+});
+
+const handleObjectiveChange = (value) => {
+  setObjective(prev => ({
+    ...prev,
+    objective: value
+  }));
+};
+
+
   const sidebarCards = [
     {
       id: 1,
@@ -55,7 +67,7 @@ const ResizableSidebar = () => {
       title: "Objective",
       icon: Target,
       content: "Create and manage your CV objective statement to showcase your career goals and aspirations.",
-      children: <Objective />
+      children: <Objective objective={objective} onObjectiveChange={handleObjectiveChange} />
     },
     {
       id: 3, 
@@ -137,7 +149,7 @@ const ResizableSidebar = () => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume personalInfo={personalInfo} />
+            <Resume personalInfo={personalInfo} objective={objective} />
           </div>
         </div>
       </ResizablePanel>
