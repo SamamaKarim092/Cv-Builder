@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import AnimatedCollapseCard from './AnimatedCollapseCard';
 import PersonalInfo from './Cards Components/PersonalInfo';
 import Objective from './Cards Components/Objective';
@@ -24,13 +25,30 @@ import {
 } from 'lucide-react';
 
 const ResizableSidebar = () => {
+  const [personalInfo, setPersonalInfo] = useState({
+    fullName: '',
+    city: '',
+    country: '',
+    email: '',
+    phone: '',
+    linkedin: '',
+    github: ''
+  });
+
+  const handlePersonalInfoChange = (field, value) => {
+    setPersonalInfo(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   const sidebarCards = [
     {
       id: 1,
       title: "Personal Info",
       icon: User, // Changed icon to User
       content: "Add your personal information including name, contact details, and professional profiles.",
-      children: <PersonalInfo /> // Use the new PersonalInfo component
+      children: <PersonalInfo personalInfo={personalInfo} onPersonalInfoChange={handlePersonalInfoChange} /> // Use the new PersonalInfo component
     },
     {
       id: 2, 
@@ -119,7 +137,7 @@ const ResizableSidebar = () => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume />
+            <Resume personalInfo={personalInfo} />
           </div>
         </div>
       </ResizablePanel>

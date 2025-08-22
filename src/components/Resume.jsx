@@ -1,10 +1,55 @@
-const Resume = () => {
+// Resume.jsx
+const Resume = ({ personalInfo }) => {
   return (
-    <div className="w-[210mm] h-[297mm] bg-gray-100 border border-gray-300 shadow-lg mx-auto">
-      {/* A4 size resume content will go here */}
-      <div className="p-4">
-        <h1 className="text-xl font-bold text-gray-800">Resume Preview</h1>
-        <p className="text-gray-600">This is where the resume content will be displayed</p>
+    <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
+      <div className="space-y-4">
+        {/* Name */}
+        {personalInfo.fullName && (
+          <h1 className="text-3xl font-bold text-gray-800 border-b pb-2">
+            {personalInfo.fullName}
+          </h1>
+        )}
+
+        {/* Location */}
+        {(personalInfo.city || personalInfo.country) && (
+          <p className="text-sm text-gray-600">
+            {personalInfo.city && <span>{personalInfo.city}</span>}
+            {personalInfo.city && personalInfo.country && ", "}
+            {personalInfo.country && <span>{personalInfo.country}</span>}
+          </p>
+        )}
+
+        {/* Contact Info */}
+        <div className="text-sm text-gray-600 space-y-1">
+          {personalInfo.email && <p>Email: {personalInfo.email}</p>}
+          {personalInfo.phone && <p>Phone: {personalInfo.phone}</p>}
+          {personalInfo.linkedin && (
+            <p>
+              LinkedIn:{" "}
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                {new URL(personalInfo.linkedin).hostname}
+              </a>
+            </p>
+          )}
+          {personalInfo.github && (
+            <p>
+              GitHub:{" "}
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                {new URL(personalInfo.github).hostname}
+              </a>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

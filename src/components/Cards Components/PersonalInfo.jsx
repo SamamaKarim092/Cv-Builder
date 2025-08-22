@@ -1,65 +1,94 @@
-const PersonalInfo = () => {
+// PersonalInfo.jsx
+const PersonalInfo = ({ personalInfo, onPersonalInfoChange }) => {
   return (
     <div className="space-y-2 mt-2">
       {/* Personal Information Section */}
       <div className="space-y-2">
         <h4 className="text-sm font-medium text-gray-700">Personal Information:</h4>
-        
+
         {/* Full Name */}
         <div>
           <input
             type="text"
             placeholder="Your Full Name"
+            value={personalInfo.fullName}
+            onChange={(e) =>
+              onPersonalInfoChange("fullName", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
-        
+
         {/* City and Country in same row */}
         <div className="grid grid-cols-2 gap-2">
           <input
             type="text"
             placeholder="City"
+            value={personalInfo.city}
+            onChange={(e) =>
+              onPersonalInfoChange("city", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
           <input
             type="text"
             placeholder="Country"
+            value={personalInfo.country}
+            onChange={(e) =>
+              onPersonalInfoChange("country", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
-        
+
         {/* Email */}
         <div>
           <input
             type="email"
             placeholder="Your Email Address"
+            value={personalInfo.email}
+            onChange={(e) =>
+              onPersonalInfoChange("email", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
-        
+
         {/* Phone Number */}
         <div>
           <input
             type="tel"
             placeholder="Your Phone Number"
+            value={personalInfo.phone}
+            onChange={(e) =>
+              onPersonalInfoChange("phone", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
-        
+
         {/* LinkedIn */}
         <div>
           <input
             type="url"
             placeholder="LinkedIn Profile URL"
+            value={personalInfo.linkedin}
+            onChange={(e) =>
+              onPersonalInfoChange("linkedin", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
-        
+
         {/* GitHub */}
         <div>
           <input
             type="url"
             placeholder="GitHub Profile URL"
+            value={personalInfo.github}
+            onChange={(e) =>
+              onPersonalInfoChange("github", e.target.value)
+            }
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
