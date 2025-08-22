@@ -33,48 +33,50 @@ const ResizableSidebar = () => {
       children: <PersonalInfo /> // Use the new PersonalInfo component
     },
     {
-      id: 2, // Changed from 1 to 2
+      id: 2, 
       title: "Objective",
       icon: Target,
       content: "Create and manage your CV objective statement to showcase your career goals and aspirations.",
       children: <Objective />
     },
     {
-      id: 3, // Changed from 2 to 3
+      id: 3, 
       title: "Education",
       icon: GraduationCap,
       content: "Add your educational background including university, degree, CGPA, and relevant coursework.",
       children: <Education />
     },
     {
-      id: 4, // Changed from 3 to 4
+      id: 4, 
       title: "Skills",
       icon: Code,
       content: "Add your technical and soft skills. You can add multiple skills and organize them by categories.",
       children: <Skills />
     },
     {
-      id: 5, // Changed from 4 to 5
+      id: 5, 
       title: "Projects",
       icon: FolderOpen,
       content: "Showcase your projects with descriptions, technologies used, and links. Add, edit, or remove projects as needed.",
       children: <Projects />
     },
     {
-      id: 6, // Changed from 5 to 6
+      id: 6, 
       title: "Certifications",
       icon: Award,
       content: "Add your professional certifications, licenses, and credentials with verification links and issue dates.",
       children: <Certifications />
     },
     {
-      id: 7, // Changed from 6 to 7
+      id: 7, 
       title: "Achievement",
       icon: Trophy,
       content: "Highlight your awards, honors, and notable accomplishments with dates and organizing institutions.",
       children: <Achievement />
     }
   ];
+
+  
 
   return (
     <ResizablePanelGroup
