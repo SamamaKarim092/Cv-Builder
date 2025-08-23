@@ -178,6 +178,30 @@ const removeDescriptionPoint = (projectId, index) => {
   }));
 };
 
+// Certifications State
+const [certifications, setCertifications] = useState([
+  { id: Date.now(), name: '', link: '' }
+]);
+
+// Add new certification
+const addCertification = () => {
+  setCertifications([...certifications, { id: Date.now(), name: '', link: '' }]);
+};
+
+// Remove certification by id
+const removeCertification = (id) => {
+  if (certifications.length > 1) {
+    setCertifications(certifications.filter(c => c.id !== id));
+  }
+};
+
+// Update certification field
+const updateCertification = (id, field, value) => {
+  setCertifications(certifications.map(c =>
+    c.id === id ? { ...c, [field]: value } : c
+  ));
+};
+
 
   const sidebarCards = [
     {
@@ -220,7 +244,7 @@ const removeDescriptionPoint = (projectId, index) => {
       title: "Certifications",
       icon: Award,
       content: "Add your professional certifications, licenses, and credentials with verification links and issue dates.",
-      children: <Certifications />
+      children: <Certifications certifications={certifications} onAddCertification={addCertification} onRemoveCertification={removeCertification} onUpdateCertification={updateCertification} />
     },
     {
       id: 7, 
@@ -274,7 +298,7 @@ const removeDescriptionPoint = (projectId, index) => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} projects={projects} />
+            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} projects={projects} certifications={certifications} />
           </div>
         </div>
       </ResizablePanel>
