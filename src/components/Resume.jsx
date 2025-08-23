@@ -1,5 +1,5 @@
 // Resume.jsx
-const Resume = ({ personalInfo, objective, education, skills, projects, certifications }) => {
+const Resume = ({ personalInfo, objective, education, skills, projects, certifications, achievements }) => {
   return (
     <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
       <div className="space-y-4">
@@ -202,37 +202,53 @@ const Resume = ({ personalInfo, objective, education, skills, projects, certific
             </div>
           )}
 
-        {/* Certifications */}
-        {certifications && certifications.some((c) => c.name) && (
-          <div>
-            <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
-              Certifications
-            </h2>
+                 {/* Certifications */}
+         {certifications && certifications.some((c) => c.name) && (
+           <div>
+             <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
+               Certifications
+             </h2>
+ 
+             <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
+               {certifications
+                 .filter((c) => c.name.trim())
+                 .map((cert, index) => (
+                   <li key={index}>
+                     {cert.name}
+                     {cert.link && (
+                       <a
+                         href={cert.link}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="ml-2 text-blue-600 hover:underline text-xs"
+                       >
+                         (Verify)
+                       </a>
+                     )}
+                   </li>
+                 ))}
+             </ul>
+           </div>
+         )}
 
-            <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
-              {certifications
-                .filter((c) => c.name.trim())
-                .map((cert, index) => (
-                  <li key={index}>
-                    {cert.name}
-                    {cert.link && (
-                      <a
-                        href={cert.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-2 text-blue-600 hover:underline text-xs"
-                      >
-                        (Verify)
-                      </a>
-                    )}
-                  </li>
-                ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
+         {/* Achievements */}
+         {achievements && achievements.some(a => a.description.trim()) && (
+           <div>
+             <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">Achievements</h2>
+             
+             <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
+               {achievements
+                 .filter(a => a.description.trim())
+                 .map((ach, index) => (
+                   <li key={index}>{ach.description}</li>
+                 ))
+               }
+             </ul>
+           </div>
+         )}
+       </div>
+     </div>
+   );
+ };
 
 export default Resume;

@@ -202,6 +202,30 @@ const updateCertification = (id, field, value) => {
   ));
 };
 
+// Achievements State
+const [achievements, setAchievements] = useState([
+  { id: Date.now(), description: '' }
+]);
+
+// Add new achievement
+const addAchievement = () => {
+  setAchievements([...achievements, { id: Date.now(), description: '' }]);
+};
+
+// Remove achievement by id
+const removeAchievement = (id) => {
+  if (achievements.length > 1) {
+    setAchievements(achievements.filter(a => a.id !== id));
+  }
+};
+
+// Update achievement description
+const updateAchievement = (id, value) => {
+  setAchievements(achievements.map(a =>
+    a.id === id ? { ...a, description: value } : a
+  ));
+};
+
 
   const sidebarCards = [
     {
@@ -251,7 +275,7 @@ const updateCertification = (id, field, value) => {
       title: "Achievement",
       icon: Trophy,
       content: "Highlight your awards, honors, and notable accomplishments with dates and organizing institutions.",
-      children: <Achievement />
+      children: <Achievement achievements={achievements} onAddAchievement={addAchievement} onRemoveAchievement={removeAchievement} onUpdateAchievement={updateAchievement} />
     }
   ];
 
@@ -298,7 +322,7 @@ const updateCertification = (id, field, value) => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} projects={projects} certifications={certifications} />
+            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} projects={projects} certifications={certifications} achievements={achievements} />
           </div>
         </div>
       </ResizablePanel>
