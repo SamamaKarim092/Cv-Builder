@@ -25,8 +25,8 @@ import {
 } from 'lucide-react';
 
 
-// Personal Info State
 const ResizableSidebar = () => {
+  // Personal Info State
   const [personalInfo, setPersonalInfo] = useState({
     fullName: '',
     city: '',
