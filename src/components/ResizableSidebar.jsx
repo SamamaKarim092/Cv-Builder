@@ -102,6 +102,82 @@ const updateSkill = (index, field, value) => {
   setSkills(updated);
 };
 
+// Projects State
+const [projects, setProjects] = useState([
+  {
+    id: Date.now(),
+    name: '',
+    type: '',
+    description: [''],
+    liveLink: '',
+    codeLink: ''
+  }
+]);
+
+// Handlers (we'll define them below)
+// Add new project
+const addProject = () => {
+  const newProject = {
+    id: Date.now(),
+    name: '',
+    type: '',
+    description: [''],
+    liveLink: '',
+    codeLink: ''
+  };
+  setProjects([...projects, newProject]);
+};
+
+// Remove project by id
+const removeProject = (id) => {
+  if (projects.length > 1) {
+    setProjects(projects.filter(p => p.id !== id));
+  }
+};
+
+// Update project by id
+const updateProject = (id, field, value) => {
+  setProjects(projects.map(p => 
+    p.id === id ? { ...p, [field]: value } : p
+  ));
+};
+
+// Add new description point to project
+const addDescriptionPoint = (id) => {
+  setProjects(projects.map(p => {
+    if (p.id === id) {
+      return { ...p, description: [...p.description, ''] };
+    }
+    return p;
+  }));
+};
+
+// Update description point at index
+const updateDescription = (projectId, index, value) => {
+  setProjects(projects.map(p => {
+    if (p.id === projectId) {
+      return {
+        ...p,
+        description: p.description.map((d, i) => i === index ? value : d)
+      };
+    }
+    return p;
+  }));
+};
+
+// Remove description point at index
+const removeDescriptionPoint = (projectId, index) => {
+  setProjects(projects.map(p => {
+    if (p.id === projectId && p.description.length > 1) {
+      return {
+        ...p,
+        description: p.description.filter((_, i) => i !== index)
+      };
+    }
+    return p;
+  }));
+};
+
 
   const sidebarCards = [
     {
@@ -137,7 +213,7 @@ const updateSkill = (index, field, value) => {
       title: "Projects",
       icon: FolderOpen,
       content: "Showcase your projects with descriptions, technologies used, and links. Add, edit, or remove projects as needed.",
-      children: <Projects />
+      children: <Projects projects={projects} onAddProject={addProject} onRemoveProject={removeProject} onUpdateProject={updateProject} onAddDescriptionPoint={addDescriptionPoint} onUpdateDescription={updateDescription} onRemoveDescriptionPoint={removeDescriptionPoint} />
     },
     {
       id: 6, 
@@ -198,7 +274,7 @@ const updateSkill = (index, field, value) => {
 
           {/* Resume component added below the button */}
           <div className="mt-8">
-            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} />
+            <Resume personalInfo={personalInfo} objective={objective} education={education} skills={skills} projects={projects} />
           </div>
         </div>
       </ResizablePanel>

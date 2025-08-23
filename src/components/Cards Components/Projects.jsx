@@ -1,70 +1,40 @@
+// Projects.jsx (Controlled / Dumb Component)
 import React, { useState } from 'react';
-import { FolderOpen, Plus, X, Edit3, Save, XCircle } from 'lucide-react';
+import { Plus, X, Edit3, Save } from 'lucide-react';
 
-const Projects = () => {
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      name: '',
-      description: '',
-      technologies: '',
-      link: ''
-    }
-  ]);
-  const [editingId, setEditingId] = useState(null);
-
-  const addProject = () => {
-    const newProject = {
-      id: Date.now(),
-      name: '',
-      description: '',
-      technologies: '',
-      link: ''
-    };
-    setProjects([...projects, newProject]);
-  };
-
-  const removeProject = (id) => {
-    if (projects.length > 1) {
-      setProjects(projects.filter(project => project.id !== id));
-    }
-  };
-
-  const updateProject = (id, field, value) => {
-    setProjects(projects.map(project => 
-      project.id === id ? { ...project, [field]: value } : project
-    ));
-  };
-
-  const startEditing = (id) => {
-    setEditingId(id);
-  };
-
-  const stopEditing = () => {
-    setEditingId(null);
-  };
+const Projects = ({
+  projects,
+  onAddProject,
+  onRemoveProject,
+  onUpdateProject,
+  onAddDescriptionPoint,
+  onUpdateDescription,
+  onRemoveDescriptionPoint
+}) => {
+  
+  const [editingId, setEditingId] = useState(null); // ← This can stay (local UI state)
+  const startEditing = (id) => setEditingId(id);
+  const stopEditing = () => setEditingId(null);
 
   return (
-    <div className="space-y-2 mt-2"> {/* Reduced spacing from space-y-3 to space-y-2 */}
-      {/* Projects Section */}
-      <div className="space-y-2"> {/* Reduced spacing */}
+    <div className="space-y-2 mt-2">
+      <div className="space-y-2">
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-medium text-gray-700">Your Projects:</h4>
           <button
-            onClick={addProject}
+            onClick={onAddProject}
             className="flex items-center space-x-1 px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-xs transition-colors"
           >
             <Plus className="h-3 w-3" />
             <span>Add Project</span>
           </button>
         </div>
-        
-        {projects.map((project, index) => (
-          <div key={project.id} className="p-2 border border-gray-200 rounded-lg bg-white space-y-2"> {/* Reduced padding */}
-            {/* Project Header */}
+
+        {projects.map((project) => (
+          <div key={project.id} className="p-2 border border-gray-200 rounded-lg bg-white space-y-2">
             <div className="flex items-center justify-between">
               <h5 className="text-sm font-medium text-gray-800">
-                Project {index + 1}
+                Project {projects.findIndex(p => p.id === project.id) + 1}
               </h5>
               <div className="flex items-center space-x-1">
                 {editingId === project.id ? (
@@ -86,7 +56,7 @@ const Projects = () => {
                 )}
                 {projects.length > 1 && (
                   <button
-                    onClick={() => removeProject(project.id)}
+                    onClick={() => onRemoveProject(project.id)}
                     className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
                     title="Remove project"
                   >
@@ -96,64 +66,123 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* Project Fields */}
-            <div className="space-y-1.5"> {/* Reduced spacing */}
-              <input
-                type="text"
-                value={project.name}
-                onChange={(e) => updateProject(project.id, 'name', e.target.value)}
-                placeholder="Project Name"
-                className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" // Reduced padding
-                disabled={editingId !== null && editingId !== project.id}
-              />
-              
-              <textarea
-                value={project.description}
-                onChange={(e) => updateProject(project.id, 'description', e.target.value)}
-                placeholder="Project Description"
-                className="w-full p-1.5 border border-gray-300 rounded resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                rows={1} // Reduced from 2 to 1
-                disabled={editingId !== null && editingId !== project.id}
-              />
-              
-              <input
-                type="text"
-                value={project.technologies}
-                onChange={(e) => updateProject(project.id, 'technologies', e.target.value)}
-                placeholder="Technologies Used"
-                className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                disabled={editingId !== null && editingId !== project.id}
-              />
-              
-              <input
-                type="url"
-                value={project.link}
-                onChange={(e) => updateProject(project.id, 'link', e.target.value)}
-                placeholder="Project Link"
-                className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                disabled={editingId !== null && editingId !== project.id}
-              />
-            </div>
+            {/* Edit Mode */}
+            {editingId === project.id && (
+              <div className="space-y-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="text"
+                    value={project.name}
+                    onChange={(e) => onUpdateProject(project.id, 'name', e.target.value)}
+                    placeholder="Project Name"
+                    className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                  <input
+                    type="text"
+                    value={project.type}
+                    onChange={(e) => onUpdateProject(project.id, 'type', e.target.value)}
+                    placeholder="Project Type (e.g., Full-Stack)"
+                    className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                </div>
 
-            {/* Project Preview (when not editing) - Condensed */}
-            {editingId !== project.id && project.name && (
-              <div className="mt-1 p-1.5 bg-gray-50 rounded border-l-2 border-blue-400"> {/* Reduced padding and border */}
-                <div className="text-xs"> {/* Changed from text-sm to text-xs */}
-                  <div className="font-medium text-gray-800">{project.name}</div>
-                  {project.technologies && (
-                    <div className="text-gray-500">
-                      <span className="font-medium">Tech:</span> {project.technologies}
-                    </div>
-                  )}
-                  {project.link && (
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:text-blue-700 underline"
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="url"
+                    value={project.liveLink}
+                    onChange={(e) => onUpdateProject(project.id, 'liveLink', e.target.value)}
+                    placeholder="Live Preview Link"
+                    className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                  <input
+                    type="url"
+                    value={project.codeLink}
+                    onChange={(e) => onUpdateProject(project.id, 'codeLink', e.target.value)}
+                    placeholder="Codebase Link (GitHub)"
+                    className="w-full p-1.5 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-medium text-gray-600">Description:</label>
+                    <button
+                      onClick={() => onAddDescriptionPoint(project.id)}
+                      className="flex items-center space-x-1 text-xs text-green-600 hover:text-green-800"
                     >
-                      View Project
-                    </a>
+                      <Plus className="h-3 w-3" />
+                      <span>Add Bullet</span>
+                    </button>
+                  </div>
+                  {project.description.map((point, idx) => (
+                    <div key={idx} className="flex items-center space-x-1">
+                      <span className="text-gray-500">•</span>
+                      <input
+                        type="text"
+                        value={point}
+                        onChange={(e) => onUpdateDescription(project.id, idx, e.target.value)}
+                        placeholder={`Detail ${idx + 1}`}
+                        className="flex-1 p-1 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 text-xs"
+                      />
+                      {project.description.length > 1 && (
+                        <button
+                          onClick={() => onRemoveDescriptionPoint(project.id, idx)}
+                          className="p-0.5 text-red-500 hover:text-red-700"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Preview Mode */}
+            {editingId !== project.id && (
+              <div className="mt-1 p-1.5 bg-gray-50 rounded border-l-2 border-blue-400 space-y-1">
+                <div className="text-xs">
+                  <div>
+                    <span className="font-medium text-gray-800">{project.name}</span>
+                    {project.type && (
+                      <span className="ml-2 px-1.5 py-0.5 bg-blue-100 text-blue-800 text-xs rounded">
+                        {project.type}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {project.liveLink && (
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:underline text-xs"
+                      >
+                        🔗 Live Preview
+                      </a>
+                    )}
+                    {project.codeLink && (
+                      <a
+                        href={project.codeLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 hover:underline text-xs"
+                      >
+                        💻 Code
+                      </a>
+                    )}
+                  </div>
+
+                  {project.description.some(d => d.trim()) && (
+                    <ul className="list-disc list-inside space-y-0.5 mt-1 text-xs text-gray-700">
+                      {project.description
+                        .filter(d => d.trim())
+                        .map((point, idx) => (
+                          <li key={idx}>{point}</li>
+                        ))
+                      }
+                    </ul>
                   )}
                 </div>
               </div>
@@ -162,7 +191,7 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* Project Categories - Simplified */}
+         {/* Project Categories */}
       <div className="space-y-1">
         <h4 className="text-sm font-medium text-gray-700">Project Types:</h4>
         <div className="grid grid-cols-2 gap-1 text-xs">
@@ -181,8 +210,8 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Tips Section - Made More Visible */}
-      <div className="space-y-1 mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg"> {/* Added background and border */}
+       {/* Tips Section */}
+      <div className="space-y-1 mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
         <h4 className="text-sm font-medium text-gray-700 flex items-center">
           💡 Project Tips:
         </h4>

@@ -1,5 +1,5 @@
 // Resume.jsx
-const Resume = ({ personalInfo, objective, education, skills }) => {
+const Resume = ({ personalInfo, objective, education, skills, projects }) => {
   return (
     <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
       <div className="space-y-4">
@@ -131,7 +131,71 @@ const Resume = ({ personalInfo, objective, education, skills }) => {
             </div>
           )}
 
-          
+        {/* Projects */}
+        {projects && projects.some(p => p.name || p.description.some(d => d.trim())) && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">Projects</h2>
+            
+            <div className="space-y-4 mt-2">
+              {projects
+                .filter(p => p.name || p.description.some(d => d.trim()))
+                .map((project, index) => (
+                  <div key={project.id || index} className="space-y-1">
+                    {/* Project Name and Type */}
+                    <div className="flex items-baseline gap-2">
+                      <h3 className="text-base font-medium text-gray-800">
+                        {project.name || <em className="text-gray-500">Untitled Project</em>}
+                      </h3>
+                      {project.type && (
+                        <span className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded font-medium">
+                          {project.type}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Links */}
+                    {(project.liveLink || project.codeLink) && (
+                      <div className="flex flex-wrap gap-3 text-sm">
+                        {project.liveLink && (
+                          <a
+                            href={project.liveLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline flex items-center gap-1"
+                          >
+                            🔗 Live Preview
+                          </a>
+                        )}
+                        {project.codeLink && (
+                          <a
+                            href={project.codeLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-600 hover:underline flex items-center gap-1"
+                          >
+                            💻 Code
+                          </a>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Description */}
+                    {project.description.some(d => d.trim()) && (
+                      <ul className="list-disc list-inside space-y-0.5 text-sm text-gray-700 mt-1">
+                        {project.description
+                          .filter(d => d.trim())
+                          .map((point, idx) => (
+                            <li key={idx}>{point}</li>
+                          ))
+                        }
+                      </ul>
+                    )}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
