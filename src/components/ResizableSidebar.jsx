@@ -304,7 +304,6 @@ const updateAchievement = (id, value) => {
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />
-      
       <ResizablePanel defaultSize={75}>
         <div className="flex-1 p-8 bg-white h-full overflow-y-auto">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">CV Builder</h1>
