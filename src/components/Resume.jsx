@@ -1,5 +1,28 @@
 // Resume.jsx
-const Resume = ({ personalInfo, objective, education, skills, projects, certifications, achievements }) => {
+const getHostname = (value) => {
+  if (!value) return null;
+  try {
+    // Ensure protocol exists for URL constructor; if missing, assume https
+    const url =
+      value.startsWith("http://") || value.startsWith("https://")
+        ? value
+        : `https://${value}`;
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    // If it's not a valid URL, return the raw value so the UI doesn't crash
+    return value;
+  }
+};
+
+const Resume = ({
+  personalInfo,
+  objective,
+  education,
+  skills,
+  projects,
+  certifications,
+  achievements,
+}) => {
   return (
     <div className="w-[210mm] h-[297mm] bg-white border border-gray-300 shadow-lg mx-auto p-6 font-sans">
       <div className="space-y-4">
@@ -27,12 +50,16 @@ const Resume = ({ personalInfo, objective, education, skills, projects, certific
             <p>
               LinkedIn:{" "}
               <a
-                href={personalInfo.linkedin}
+                href={
+                  personalInfo.linkedin.startsWith("http")
+                    ? personalInfo.linkedin
+                    : `https://${personalInfo.linkedin}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline"
               >
-                {new URL(personalInfo.linkedin).hostname}
+                {getHostname(personalInfo.linkedin)}
               </a>
             </p>
           )}
@@ -40,12 +67,16 @@ const Resume = ({ personalInfo, objective, education, skills, projects, certific
             <p>
               GitHub:{" "}
               <a
-                href={personalInfo.github}
+                href={
+                  personalInfo.github.startsWith("http")
+                    ? personalInfo.github
+                    : `https://${personalInfo.github}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline"
               >
-                {new URL(personalInfo.github).hostname}
+                {getHostname(personalInfo.github)}
               </a>
             </p>
           )}
@@ -202,53 +233,54 @@ const Resume = ({ personalInfo, objective, education, skills, projects, certific
             </div>
           )}
 
-                 {/* Certifications */}
-         {certifications && certifications.some((c) => c.name) && (
-           <div>
-             <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
-               Certifications
-             </h2>
- 
-             <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
-               {certifications
-                 .filter((c) => c.name.trim())
-                 .map((cert, index) => (
-                   <li key={index}>
-                     {cert.name}
-                     {cert.link && (
-                       <a
-                         href={cert.link}
-                         target="_blank"
-                         rel="noopener noreferrer"
-                         className="ml-2 text-blue-600 hover:underline text-xs"
-                       >
-                         (Verify)
-                       </a>
-                     )}
-                   </li>
-                 ))}
-             </ul>
-           </div>
-         )}
+        {/* Certifications */}
+        {certifications && certifications.some((c) => c.name) && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
+              Certifications
+            </h2>
 
-         {/* Achievements */}
-         {achievements && achievements.some(a => a.description.trim()) && (
-           <div>
-             <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">Achievements</h2>
-             
-             <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
-               {achievements
-                 .filter(a => a.description.trim())
-                 .map((ach, index) => (
-                   <li key={index}>{ach.description}</li>
-                 ))
-               }
-             </ul>
-           </div>
-         )}
-       </div>
-     </div>
-   );
- };
+            <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
+              {certifications
+                .filter((c) => c.name.trim())
+                .map((cert, index) => (
+                  <li key={index}>
+                    {cert.name}
+                    {cert.link && (
+                      <a
+                        href={cert.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-2 text-blue-600 hover:underline text-xs"
+                      >
+                        (Verify)
+                      </a>
+                    )}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Achievements */}
+        {achievements && achievements.some((a) => a.description.trim()) && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800 border-b pb-1">
+              Achievements
+            </h2>
+
+            <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-gray-700">
+              {achievements
+                .filter((a) => a.description.trim())
+                .map((ach, index) => (
+                  <li key={index}>{ach.description}</li>
+                ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Resume;
