@@ -303,7 +303,6 @@ const updateAchievement = (id, value) => {
           </div>
         </div>
       </ResizablePanel>
-      
       <ResizableHandle withHandle />
       
       <ResizablePanel defaultSize={75}>
