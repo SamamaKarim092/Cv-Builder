@@ -41,7 +41,7 @@ const ResizableSidebar = () => {
   const handlePersonalInfoChange = (field, value) => {
     setPersonalInfo(prev => ({
       ...prev,
-      [field]: value
+      [field]: value  
     }));
   };
 
