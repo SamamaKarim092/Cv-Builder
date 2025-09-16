@@ -278,7 +278,6 @@ const updateAchievement = (id, value) => {
     }
   ];
 
-  
   return (
     <ResizablePanelGroup
       direction="horizontal"
