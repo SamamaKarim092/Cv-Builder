@@ -70,7 +70,7 @@ const PersonalInfo = ({ personalInfo, onPersonalInfoChange }) => {
         {/* LinkedIn */}
         <div>
           <input
-            type="url"
+            type="text"
             placeholder="LinkedIn Profile URL"
             value={personalInfo.linkedin}
             onChange={(e) =>
@@ -83,7 +83,7 @@ const PersonalInfo = ({ personalInfo, onPersonalInfoChange }) => {
         {/* GitHub */}
         <div>
           <input
-            type="url"
+            type="text"
             placeholder="GitHub Profile URL"
             value={personalInfo.github}
             onChange={(e) =>
