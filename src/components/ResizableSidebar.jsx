@@ -226,7 +226,6 @@ const updateAchievement = (id, value) => {
   ));
 };
 
-
   const sidebarCards = [
     {
       id: 1,
